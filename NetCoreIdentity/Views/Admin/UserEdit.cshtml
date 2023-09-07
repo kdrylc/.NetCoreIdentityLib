@@ -1,0 +1,62 @@
+﻿@using NetCoreIdentity.DTO;
+@model UserDetailModelDTO
+
+@{
+    ViewData["Title"] = "UserEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>User Edit</h1>
+<hr />
+<div class="container">
+    <div class="col-md-12">
+            <form asp-controller="Admin" asp-action="UserEdit" method="post">
+                <input type="hidden" name="UserId" value="@Model.UserId" />
+                <div class="form-group row">
+                    <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="UserName" class="col-sm-2 col-form-label"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Email" class="col-sm-2 col-form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+       
+            @foreach (var rolename in ViewBag.Roles)
+            {
+                <div class="custom-control custom-checkbox">
+
+                    <input type="checkbox" class="custom-cotrol-input" name="selectedRoles" value="@rolename" id="@rolename" @(Model.SelectedRoles.Any(i => i == rolename) ? "checked" : "")>
+                    <label class="custom-control-label" for="@rolename">@rolename</label>
+
+                </div>
+            }
+            <hr>
+
+            <div class="custom-control custom-checkbox">
+                <input asp-for="EmailConfirmed" type="checkbox" class="custom-control-input">
+                <label asp-for="EmailConfirmed" class="custom-control-label"> </label>
+
+            </div>
+
+            <div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

@@ -1,0 +1,62 @@
+﻿@using NetCoreIdentity.Models.Identity;
+@model IEnumerable<User>
+@{
+    ViewData["Title"] = "UserList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Css
+    {
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+}
+
+@section Scripts
+    {
+    <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+
+}
+
+
+<h1>User List</h1>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <table id="myTable" class="table table-bordered">
+            <a href="/Admin/UserCreate/">Create User</a>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Email Confirmed</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="@(item.EmailConfirmed?"":"bg-warning")">
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Email</td>
+                        <td>@item.EmailConfirmed</td>
+                        <td>
+
+                            <a class="btn btn-primary" href="/Admin/UserEdit/@item.Id">Edit</a>
+                            <a class="btn btn-danger" href="/Admin/UserDelete/@item.Id">Delete</a>
+
+                        </td>
+                    </tr>
+                }
+                
+            </tbody>
+        </table>
+    </div>
+</div>
